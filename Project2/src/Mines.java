@@ -4,7 +4,7 @@
 
 import java.util.Random;
 
-public class Mines {
+public class Mines extends Pieces{
 
 
     private int health;
