@@ -3,7 +3,7 @@
  */
 import java.util.Random;
 
-public class Ship {
+public class Ship extends Pieces {
     private int xpos;
     private int ypos;
     private int length;
