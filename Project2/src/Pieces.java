@@ -7,6 +7,13 @@ public class Pieces {
     private int ylocation;
     private int health;
 
+    public Pieces(int health){
+        this.health = health;
+
+    }
+    public Pieces(){
+        this.health = -1;
+    }
     public int getXlocation() {
         return xlocation;
     }
@@ -31,5 +38,6 @@ public class Pieces {
     public void setHealth(int x){
         health = x;
     }
+
 
 }
