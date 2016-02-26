@@ -8,41 +8,20 @@ import javax.swing.*;
 
 public class BoardFrame extends JFrame {
     private JFrame board;
-    private JButton[][] buttonarray;
 
-    public BoardFrame(int x, ButtonArray[][] b) {
+    public BoardFrame(int x, int y, ButtonArray[][] b) {
         board = new JFrame("BattleShip");
         board.setSize(800, 800);
         board.setResizable(true);
-        board.setLayout(new GridLayout(x, x));
+        board.setLayout(new GridLayout(x, y));
         for (int i = 0; i < b.length; i++) {
             for (int j = 0; j < b[i].length; j++) {
-                buttonarray[i][j] = new BattleshipButton(j, i, "W", null);
-                buttonarray[i][j].addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        BattleshipButton button = (BattleshipButton) e.getSource();
-                        button.setText("Miss");
-                    }
-                });
-            }
-        }
-    }
-    public void Display() {
-        for (int i = 0; i < buttonarray.length; i++) {
-            for (int j = 0; j < buttonarray[i].length; j++) {
-                System.out.println(buttonarray[i][j]);
+                board.add(b[i][j]);
             }
         }
     }
 
-    public JButton[][] getButtonarray() {
-        return buttonarray;
-    }
-
-    public void setButtonarray(JButton a, int x, int y) {
-        this.buttonarray[y][x] = a;
-    }
+    
 
     public static void main(String[] args) {
         BoardFrame board1 = new BoardFrame(3);
