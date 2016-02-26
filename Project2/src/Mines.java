@@ -4,27 +4,19 @@
 
 import java.util.Random;
 
-public class Mines extends Pieces{
+public class Mines extends BattleshipButton{
 
 
-    private int health;
-    private int[] location;
-
-    public Mines(int x){
-        health = 1;
-        Random number = new Random();
-        int xpos = number.nextInt(x);
-        int ypos = number.nextInt(x);
-        int[] location = new int[2];
-        location[0] = xpos;
-        location[1] = ypos;
+    public Mines(int x, int y){
+        super(findX(x), findY(y), "w", "mine", 1);
     }
 
-    public int getHealth() {
-        return health;
+    public static int findX(int x){
+        Random rand = new Random();
+        return rand.nextInt(x - 1);
     }
-
-    public void setHealth(int health) {
-        this.health = health;
+    public static int findY(int x){
+        Random rand = new Random();
+        return rand.nextInt(x - 1);
     }
 }
