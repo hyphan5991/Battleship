@@ -58,4 +58,5 @@ public class Ship {
 
         return orientation;
     }
+    System.out.println("hello")
 }
