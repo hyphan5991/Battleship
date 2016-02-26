@@ -35,4 +35,20 @@ public class ButtonArray {
         }
 
     }
+
+    public void Display() {
+        for (int i = 0; i < buttArray.length; i++) {
+            for (int j = 0; j < buttArray[i].length; j++) {
+                System.out.println(buttArray[i][j]);
+            }
+        }
+    }
+
+    public JButton[][] getButtonarray() {
+        return buttArray;
+    }
+
+    public void setButtonarray(BattleshipButton a, int x, int y) {
+        this.buttArray[y][x] = a;
+    }
 }
