@@ -3,48 +3,74 @@
  */
 import java.util.Random;
 
-public class Ship {
-    private int xpos;
-    private int ypos;
+public class Ship extends BattleshipButton{
     private int length;
     private int orient;
-    private int health;
+    private int[][] locs;
 
-    public Ship(int health, int length, int x){
-        this.health = health;
-        this.length = length;
-        Random rand = new Random();
-        xpos = rand.nextInt(x - 1);
-        ypos = rand.nextInt(x - 1);
-        this.orient = check(x);
-
+    public Ship(int x){
+        super(findX(x), findY(x), "w", "ship", 3);
+        length = 3;
+        orient = check(this.getXloc(), this.getYloc());
+        locs = new int[3][2];
+        if (orient == 0){
+            for (int i = 0; i < locs.length; i++){
+                locs[i][0] = this.getXloc();
+                locs[i][1] = this.getYloc() - i;
+            }
+        } else if (orient == 90){
+            for (int i = 0; i < locs.length; i++){
+                locs[i][0] = this.getXloc() + i;
+                locs[i][1] = this.getYloc();
+            }
+        } else if (orient == 180){
+            for (int i = 0; i < locs.length; i++){
+                locs[i][0] = this.getXloc();
+                locs[i][1] = this.getYloc() + i;
+            }
+        } else if (orient == 270){
+            for (int i = 0; i < locs.length; i++){
+                locs[i][0] = this.getXloc() - i;
+                locs[i][1] = this.getYloc();
+            }
+        }
     }
 
-    public int check(int x){
+    public static int findX(int x){
         Random rand = new Random();
-        int max = x - 1;
+        return rand.nextInt(x - 1);
+    }
+    public static int findY(int x){
+        Random rand = new Random();
+        return rand.nextInt(x - 1);
+    }
+
+    public int check(int x, int y){
+        Random rand = new Random();
+        int maxX = x - 1;
+        int maxY = y - 1;
         int[] orient = new int[4];
         int orientation = -1;
 
-        if (this.ypos + this.length < max){
+        if (this.getYloc() + this.length <= maxY){
             orient[0] = -1;
         }
         else {
             orient[0] = -1;
         }
-        if (this.ypos - this.length > 0){
+        if (this.getYloc() - this.length > 0){
             orient[1] = 180;
         }
         else {
             orient[1] = -1;
         }
-        if (this.xpos + this.length < max) {
+        if (this.getXloc() + this.length <= maxX) {
             orient[2] = 90;
         }
         else {
             orient[2] = -1;
         }
-        if (this.xpos - length > 0){
+        if (this.getXloc() - length > 0){
             orient[3] = 270;
         }
         else {
@@ -58,5 +84,9 @@ public class Ship {
 
         return orientation;
     }
-    System.out.println("hello")
+
+    public int[][] getLocs() {
+        return locs;
+    }
+
 }
