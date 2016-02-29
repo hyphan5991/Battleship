@@ -1,0 +1,54 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.plaf.basic.DefaultMenuLayout;
+
+public class Firstframe extends JFrame {
+    private JFrame initframe;
+    private JLabel message;
+    private JPanel buttonpanel;
+    public int inittextx;
+    public int inittexty;
+    public JTextField fieldx;
+    public JTextField fieldy;
+
+    public Firstframe(){
+        prepareGUI();
+    }
+    public static void main(String[] args){
+        Firstframe firstframe = new Firstframe();
+        firstframe.showfirstframe();
+    }
+    public void prepareGUI(){
+        initframe = new JFrame("Initial Frame");
+        initframe.setSize(1000,800);
+        initframe.setResizable(true);
+        initframe.setLayout(new FlowLayout());
+        message = new JLabel("", JLabel.CENTER);
+        buttonpanel = new JPanel();
+        buttonpanel.setLayout(new FlowLayout());
+        initframe.add(message);
+        initframe.add(buttonpanel);
+        fieldx = new JTextField(10);
+        fieldy = new JTextField(20);
+        initframe.add(fieldx, BorderLayout.EAST);
+        initframe.add(fieldy, BorderLayout.WEST);
+
+    }
+    public void showfirstframe(){
+        message.setText("Type width dimensions on the left, height on the right and hit submit");
+        JButton submitbutton = new JButton("submit");
+        submitbutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                inittextx = Integer.parseInt(fieldx.getText());
+                inittexty = Integer.parseInt(fieldy.getText());
+                BoardFrame.makeBoard(inittextx, inittexty);
+                System.exit(0);
+            }
+        });
+       buttonpanel.add(submitbutton);
+        initframe.setVisible(true);
+
+    }
+}
