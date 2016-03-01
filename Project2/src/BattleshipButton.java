@@ -5,56 +5,29 @@
 import javax.swing.*;
 
 public class BattleshipButton extends JButton {
-    private int xloc;
-    private int yloc;
-    private int health;
-    private String w;
-    private String type;
+    private int xLoc;
+    private int yLoc;
 
-    public BattleshipButton(int x, int y, String w, String type){
+    public BattleshipButton(String w, int x, int y){
         super(w);
-        xloc = x;
-        yloc = y;
-        this.type = type;
-    }
-    public BattleshipButton(int x, int y, String w, String type, int health){
-        super(w);
-        xloc = x;
-        yloc = y;
-        this.health = health;
-        this.type = type;
+        xLoc = x;
+        yLoc = y;
     }
 
-    public String toString(){
-        return "Type: " + type + " X: " + this.getXloc() + " Y: " + this.getYloc();
-    }
-    public String getType() {
-        return type;
+    public int getxLoc() {
+        return xLoc;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-    public int getHealth() {
-        return health;
+    public void setxLoc(int xLoc) {
+        this.xLoc = xLoc;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    public int getyLoc() {
+        return yLoc;
     }
 
-    public int getXloc() {
-        return xloc;
-    }
-    public void setXloc(int xloc) {
-        this.xloc = xloc;
+    public void setyLoc(int yLoc) {
+        this.yLoc = yLoc;
     }
 
-    public int getYloc() {
-        return yloc;
-    }
-
-    public void setYloc(int yloc) {
-        this.yloc = yloc;
-    }
 }
