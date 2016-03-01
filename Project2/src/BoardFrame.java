@@ -6,27 +6,29 @@ public class BoardFrame extends JFrame {
     public static JFrame board;
     public static int xLoc = 0;
     public static int yLoc = 0;
+    public static int[][] buttonArray;
 
     public static JFrame makeBoard(JFrame board, int x, int y, BoardArray theboardArray) {
         final int [][]boardArray = theboardArray.getBOARDARRAY();
         board = new JFrame("BattleShip");
         board.setBounds(0, 0, 800, 800);
-        board.setResizable(false);
+        board.setResizable(true);
         board.setDefaultCloseOperation(BoardFrame.EXIT_ON_CLOSE);
         board.setLayout(new GridLayout(x,y,0,0));
-        for (int i = 0; i < x * y; i++){
-            JButton norm = new JButton("w");
+        buttonArray = new int[y*x][2];
+        int id = 0;
+        for (int i = 0; i < y; i++){
+            for (int j = 0; j <x; j++){
+            BattleshipButton norm = new BattleshipButton("w", j, i);
             norm.setPreferredSize(new Dimension(50, 50));
             norm.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JButton button = (JButton) e.getSource();
-                    xLoc = button.getX();
-                    yLoc = button.getY();
-                    int x = 800/(805-xLoc);
-                    int y = 800/(805-yLoc);
-                    System.out.println(x);
-                    System.out.println(y);
+                    BattleshipButton button = (BattleshipButton) e.getSource();
+                    xLoc = button.getXLoc();
+                    yLoc = button.getYLoc();
+                    System.out.println(xLoc);
+                    System.out.println(yLoc);
                     System.out.println(boardArray[y][x]);
                     System.out.println("_");
                     System.out.println(BattleShip.getturns());
@@ -68,16 +70,14 @@ public class BoardFrame extends JFrame {
                         button.setText(String.valueOf(i));
                         boardArray[y][x] = 3;
                     }
-
-
-
-
-
             }
             });
             board.add(norm);
+            buttonArrary[id][0] = j;
+            buttonArrary[id][1] = i;
 //        boardArray[i] = new int[]{norm.getX(), norm.getY()};
         }
+    }
         board.setVisible(true);
 
         return board;
