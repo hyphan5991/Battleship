@@ -7,10 +7,19 @@ public class BoardFrame extends JFrame {
     public static int xLoc = 0;
     public static int yLoc = 0;
     public static int[][] buttonArray;
+    public static JFrame scoreboard;
+    public static JLabel turns;
+
 
     public static JFrame makeBoard(JFrame board, int x, int y, BoardArray theboardArray) {
         final int [][]boardArray = theboardArray.getBOARDARRAY();
         board = new JFrame("BattleShip");
+        scoreboard = new JFrame("Scoreboard");
+        scoreboard.setBounds(1000,0,400,400);
+        scoreboard.setLayout(new FlowLayout());
+        scoreboard.setVisible(true);
+        turns = new JLabel("Turncount = 0");
+        scoreboard.add(turns);
         board.setBounds(0, 0, 800, 800);
         board.setResizable(true);
         board.setDefaultCloseOperation(BoardFrame.EXIT_ON_CLOSE);
@@ -35,7 +44,9 @@ public class BoardFrame extends JFrame {
                         if(boardArray[yLoc][xLoc]==3){
                             BattleShip.turnchange();
                             BattleShip.turnchange();
-                            button.setText("ya this shit works yo");
+                        if(button.getText().contains("button has already been hit")){}
+                        else button.setText(button.getText()+" button has already been hit");
+
                         }
                         if(boardArray[yLoc][xLoc]== 1){
                             button.setText("hit");
@@ -101,7 +112,9 @@ public class BoardFrame extends JFrame {
                             }
                             button.setText(String.valueOf(i - 1));
                             boardArray[yLoc][xLoc] = 3;
+                            BattleShip.turnchange();
                         }
+                    turns.setText("Turncount="+ String.valueOf(BattleShip.getturns()));
                     }
                 });
                 board.add(norm);
