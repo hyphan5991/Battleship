@@ -19,65 +19,97 @@ public class BoardFrame extends JFrame {
         int id = 0;
         for (int i = 0; i < y; i++){
             for (int j = 0; j <x; j++){
-            BattleshipButton norm = new BattleshipButton("w", j, i);
-            norm.setPreferredSize(new Dimension(50, 50));
-            norm.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    BattleshipButton button = (BattleshipButton) e.getSource();
-                    xLoc = button.getXLoc();
-                    yLoc = button.getYLoc();
-                    System.out.println(xLoc);
-                    System.out.println(yLoc);
-                    System.out.println(boardArray[y][x]);
-                    System.out.println("_");
-                    System.out.println(BattleShip.getturns());
-                    if(boardArray[y][x]==3){
-                        BattleShip.turnchange();
-                        BattleShip.turnchange();
-                        button.setText("ya this shit works yo");
-                    }
-                    if(boardArray[y][x]== 1){
-                        button.setText("hit");
-                        BattleShip.turnchange();
-                        BattleShip.shiphit();
-                        boardArray[y][x] = 3;
-                    }
-                    if(boardArray[y][x]==2){
-                        button.setText("KABOOM mine hit,loose 1 turn");
-                        BattleShip.turnchange();
-                        BattleShip.turnchange();
-                        boardArray[y][x] = 3;
-                    }
-                    if(boardArray[y][x] == 0){
-                        Boolean cont = true;
-                        int i = 1;
-                        while(cont== true){
-                            if( y+i < boardArray.length && boardArray[y+i][x]==1){
-                                cont =false;
+                BattleshipButton norm = new BattleshipButton("w", j, i);
+                norm.setPreferredSize(new Dimension(50, 50));
+                norm.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        BattleshipButton button = (BattleshipButton) e.getSource();
+                        xLoc = button.getxLoc();
+                        yLoc = button.getyLoc();
+                        System.out.println(xLoc);
+                        System.out.println(yLoc);
+                        System.out.println(boardArray[yLoc][xLoc]);
+                        System.out.println("_");
+                        System.out.println(BattleShip.getturns());
+                        if(boardArray[yLoc][xLoc]==3){
+                            BattleShip.turnchange();
+                            BattleShip.turnchange();
+                            button.setText("ya this shit works yo");
                         }
-                           else if(y-i > -1 && boardArray[y-i][x]==1 ){
-                               cont = false;
-                           }
-                           else if( x+1< boardArray[y].length && boardArray[y][x+i]==1 ){
-                               cont=false;
-                           }
-                           else if( x-i > -1 && boardArray[y][x-i]==1 ){
-                               cont = false;
-                           }
-                           else i++;
+                        if(boardArray[yLoc][xLoc]== 1){
+                            button.setText("hit");
+                            BattleShip.turnchange();
+                            BattleShip.shiphit();
+                            boardArray[yLoc][xLoc] = 3;
                         }
-                        button.setText(String.valueOf(i));
-                        boardArray[y][x] = 3;
+                        if(boardArray[yLoc][xLoc]==2){
+                            button.setText("KABOOM mine hit,lose 1 turn");
+                            BattleShip.turnchange();
+                            BattleShip.turnchange();
+                            boardArray[yLoc][xLoc] = 3;
+                        }
+                        if(boardArray[yLoc][xLoc] == 0){
+                            boolean cont = true;
+                            int i = 0;
+                            int maxX = boardArray[0].length;
+                            int maxY = boardArray.length;
+                            while(cont == true){
+                                if (i < maxX || i < maxY) {
+                                    try {
+                                        if (yLoc + i < boardArray.length && boardArray[yLoc + i][xLoc] == 1) {
+                                            cont = false;
+                                        }
+                                    } catch (ArrayIndexOutOfBoundsException t) {
+                                        cont = false;
+                                    } catch (IndexOutOfBoundsException b) {
+                                        cont = false;
+                                    }
+                                    try {
+                                        if (yLoc - i > -1 && boardArray[yLoc - i][xLoc] == 1) {
+                                            cont = false;
+                                        }
+                                    } catch (ArrayIndexOutOfBoundsException t) {
+                                        cont = false;
+                                    } catch (IndexOutOfBoundsException b) {
+                                        cont = false;
+                                    }
+                                    try {
+                                        if (xLoc + i < boardArray[yLoc].length && boardArray[yLoc][xLoc + i] == 1) {
+                                            cont = false;
+                                        }
+                                    } catch (ArrayIndexOutOfBoundsException t) {
+                                        cont = false;
+                                    } catch (IndexOutOfBoundsException b) {
+                                        cont = false;
+                                    }
+                                    try {
+                                        if (xLoc - i > -1 && boardArray[yLoc][xLoc - i] == 1) {
+                                            cont = false;
+                                        }
+                                    } catch (ArrayIndexOutOfBoundsException t) {
+                                        cont = false;
+                                    } catch (IndexOutOfBoundsException b) {
+                                        cont = false;
+                                    }
+
+                                    i++;
+                                }
+                                else{
+                                    cont = false;
+                                }
+                            }
+                            button.setText(String.valueOf(i - 1));
+                            boardArray[yLoc][xLoc] = 3;
+                        }
                     }
-            }
-            });
-            board.add(norm);
-            buttonArrary[id][0] = j;
-            buttonArrary[id][1] = i;
+                });
+                board.add(norm);
+                buttonArray[id][0] = j;
+                buttonArray[id][1] = i;
 //        boardArray[i] = new int[]{norm.getX(), norm.getY()};
+            }
         }
-    }
         board.setVisible(true);
 
         return board;
@@ -86,4 +118,4 @@ public class BoardFrame extends JFrame {
 
 
 
-    }
+}
