@@ -6,15 +6,16 @@ public class BoardFrame extends JFrame {
     public static JFrame board;
     public static int xLoc = 0;
     public static int yLoc = 0;
-    public static int[][] boardArray;
+//    public static int[][] boardArray;
+    static int[][]boardArray = {{1,0,0},{0,1,1},{0,0,2},{1,2,0},{0,0,0}};
 
     public static JFrame makeBoard(JFrame board, int x, int y) {
-        boardArray = new int[x * y][2];
+//        boardArray = new int[x * y][2];
         board = new JFrame("BattleShip");
         board.setBounds(0, 0, 800, 800);
         board.setResizable(false);
         board.setDefaultCloseOperation(BoardFrame.EXIT_ON_CLOSE);
-        board.setLayout(new GridLayout(x, y, 0, 0));
+        board.setLayout(new GridLayout(x,y,0,0));
         for (int i = 0; i < x * y; i++){
             JButton norm = new JButton("w");
             norm.setPreferredSize(new Dimension(50, 50));
@@ -24,12 +25,52 @@ public class BoardFrame extends JFrame {
                     JButton button = (JButton) e.getSource();
                     xLoc = button.getX();
                     yLoc = button.getY();
+                    int x = 800/(805-xLoc);
+                    int y = 800/(805-yLoc);
+                    System.out.println(x);
                     System.out.println(xLoc);
+                    System.out.println(y);
                     System.out.println(yLoc);
-                    button.setEnabled(false);
-                }
+                    System.out.println(boardArray[y][x]);
+                    System.out.println("_");
+                    System.out.println(BattleShip.getturns());
+                    if(boardArray[y][x]== 1){
+                        button.setText("hit");
+                        BattleShip.turnchange();
+                        BattleShip.shiphit();
+                    }
+                    if(boardArray[y][x]==2){
+                        button.setText("KABOOM mine hit,loose 1 turn");
+                        BattleShip.turnchange();
+                        BattleShip.turnchange();
+                    }
+                    if(boardArray[y][x] == 0){
+                        Boolean cont = true;
+                        int i = 1;
+                        while(cont== true){
+                            if( y+i < boardArray.length && boardArray[y+i][x]==1){
+                                cont =false;
+                        }
+                           else if(y-i > -1 && boardArray[y-i][x]==1 ){
+                               cont = false;
+                           }
+                           else if( x+1< boardArray[y].length && boardArray[y][x+i]==1 ){
+                               cont=false;
+                           }
+                           else if( x-i > -1 && boardArray[y][x-i]==1 ){
+                               cont = false;
+                           }
+                           else i++;
+                        }
+                        button.setText(String.valueOf(i));
+                    }
+
+
+
+
+            }
             });
-        board.add(norm);
+            board.add(norm);
 //        boardArray[i] = new int[]{norm.getX(), norm.getY()};
         }
         board.setVisible(true);
@@ -38,39 +79,6 @@ public class BoardFrame extends JFrame {
     }
 
 
-    public static void main(String[] args) {
-        makeBoard(board, 6, 6);
-        for (int i =0; i < boardArray.length; i++) {
-            for (int j = 0; j < boardArray[i].length; j++) {
-                System.out.println(boardArray[i][j]);
-            }
-        }
 
 
-//        ShipArray tmp = new ShipArray(5, 5);
-//        ButtonArray tmp1 = new ButtonArray(5, 5, tmp);
-//        BoardFrame board1 = new BoardFrame(5, 5, tmp1);
-//
-////        mines1.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                BattleshipButton button = (BattleshipButton) e.getSource();
-//                button.setText("mine");
-//            }
-//        });
-//        board1.setButtonarray(ship1, ship1.getXloc(), ship1.getYloc());
-//        board1.setButtonarray(mines1, ship1.getXloc(), ship1.getYloc());
-//
-//        for (int i = 0; i < board1.getButtonarray().length; i++) {
-//            for (int j = 0; j < board1.getButtonarray()[i].length; j++) {
-//                board1.add(board1.getButtonarray()[i][j]);
-//                board1.getButtonarray()[i][j].setVisible(true);
-//                board1.setVisible(true);
-//            }
-//        }
-//
-//    }
-//}
     }
-}
-
