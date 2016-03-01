@@ -1,6 +1,3 @@
-/**
- * Created by timroels on 2/26/16.
- */
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -47,7 +44,8 @@ public class Firstframe extends JFrame {
                 inittextx = Integer.parseInt(fieldx.getText());
                 inittexty = Integer.parseInt(fieldy.getText());
                 BoardFrame board = new BoardFrame();
-                board.makeBoard(board, inittextx, inittexty);
+                BoardArray x =new BoardArray(inittextx,inittexty);
+                board.makeBoard(board, inittextx, inittexty, x);
                 initframe.dispose();
             }
         });
