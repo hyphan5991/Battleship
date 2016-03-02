@@ -1,6 +1,13 @@
 public class BattleShip {
+
+
     private static int turns;
     private static int hitvalue;
+
+
+    public static int gethitvalue(){
+        return hitvalue;
+    }
     public static void turnchange(){
         turns++;
     }
@@ -10,5 +17,10 @@ public class BattleShip {
     public static void shiphit(){
         hitvalue++;
     }
-
+    public static void setTurns(int turns) {
+        BattleShip.turns = turns;
+    }
+    public static void setHitvalue(int hitvalue) {
+        BattleShip.hitvalue = hitvalue;
+    }
 }
