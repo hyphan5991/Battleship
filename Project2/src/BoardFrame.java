@@ -7,19 +7,12 @@ public class BoardFrame extends JFrame {
     public static int xLoc = 0;
     public static int yLoc = 0;
     public static int[][] buttonArray;
-    public static JFrame scoreboard;
-    public static JLabel turns;
 
 
-    public static JFrame makeBoard(JFrame board, int x, int y, BoardArray theboardArray) {
+
+    public static JFrame makeBoard(int x, int y, BoardArray theboardArray) {
         final int [][]boardArray = theboardArray.getBOARDARRAY();
         board = new JFrame("BattleShip");
-        scoreboard = new JFrame("Scoreboard");
-        scoreboard.setBounds(1000,0,400,400);
-        scoreboard.setLayout(new FlowLayout());
-        scoreboard.setVisible(true);
-        turns = new JLabel("Turncount = 0");
-        scoreboard.add(turns);
         board.setBounds(0, 0, 800, 800);
         board.setResizable(true);
         board.setDefaultCloseOperation(BoardFrame.EXIT_ON_CLOSE);
@@ -36,16 +29,11 @@ public class BoardFrame extends JFrame {
                         BattleshipButton button = (BattleshipButton) e.getSource();
                         xLoc = button.getxLoc();
                         yLoc = button.getyLoc();
-                        System.out.println(xLoc);
-                        System.out.println(yLoc);
-                        System.out.println(boardArray[yLoc][xLoc]);
-                        System.out.println("_");
-                        System.out.println(BattleShip.getturns());
                         if(boardArray[yLoc][xLoc]==3){
                             BattleShip.turnchange();
                             BattleShip.turnchange();
-                        if(button.getText().contains("button has already been hit")){}
-                        else button.setText(button.getText()+" button has already been hit");
+                            if(button.getText().contains("button has \n already been hit")){}
+                            else button.setText(button.getText()+" button has \n already been hit");
 
                         }
                         if(boardArray[yLoc][xLoc]== 1){
@@ -53,9 +41,17 @@ public class BoardFrame extends JFrame {
                             BattleShip.turnchange();
                             BattleShip.shiphit();
                             boardArray[yLoc][xLoc] = 3;
+                            ScoreBoard.ships.setText(("Ships " + (BoardArray.num - (BattleShip.gethitvalue() / 3))));
+                            if(BoardArray.shipNumber == BattleShip.gethitvalue()){
+                                board.setVisible(false);
+                                if (BattleShip.getturns() < ScoreBoard.highScore1){
+                                    ScoreBoard.highScore1 = BattleShip.getturns();
+                                    ScoreBoard.highScore.setText("High Score: " + String.valueOf(ScoreBoard.highScore1));
+                                }
+                            }
                         }
                         if(boardArray[yLoc][xLoc]==2){
-                            button.setText("KABOOM mine hit,lose 1 turn");
+                            button.setText("And Boom Goes the Dynamite \n Lose 1 Turn");
                             BattleShip.turnchange();
                             BattleShip.turnchange();
                             boardArray[yLoc][xLoc] = 3;
@@ -110,11 +106,17 @@ public class BoardFrame extends JFrame {
                                     cont = false;
                                 }
                             }
-                            button.setText(String.valueOf(i - 1));
+                            if (i - 1 == 1){
+                                button.setText("Miss Very Close");
+                            }
+                            else if(i - 1 == 2){
+                                button.setText("Miss Kinda Close");
+                            }
+
                             boardArray[yLoc][xLoc] = 3;
                             BattleShip.turnchange();
                         }
-                    turns.setText("Turncount="+ String.valueOf(BattleShip.getturns()));
+                        ScoreBoard.turns.setText("Turncount="+ String.valueOf(BattleShip.getturns()));
                     }
                 });
                 board.add(norm);
