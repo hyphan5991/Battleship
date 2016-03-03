@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
+import javax.swing.plaf.basic.DefaultMenuLayout;
 
 public class FirstFrame extends JFrame {
     private JFrame initframe;
@@ -34,6 +34,7 @@ public class FirstFrame extends JFrame {
         fieldy = new JTextField(10);
         initframe.add(fieldx, BorderLayout.EAST);
         initframe.add(fieldy, BorderLayout.WEST);
+        initframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
     }
     public void showfirstframe(){
