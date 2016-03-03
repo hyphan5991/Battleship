@@ -19,7 +19,8 @@ public class ScoreBoard extends JFrame{
 
     public ScoreBoard(){
         scoreboard = new JFrame("Scoreboard");
-        scoreboard.setBounds(1000,0,400,400);
+        scoreboard.setBounds(1000,0,200,175);
+        scoreboard.setResizable(true);
         scoreboard.setLayout(new FlowLayout());
         turns = new JLabel("Turncount = 0");
         ships = new JLabel("Ships " + (BoardArray.num - (BattleShip.gethitvalue() / 3)));
@@ -70,12 +71,12 @@ public class ScoreBoard extends JFrame{
 
             }
         });
-        scoreboard.add(highScore);
-        scoreboard.add(newGame);
-        scoreboard.add(quit);
-        scoreboard.add(replay);
         scoreboard.add(turns);
         scoreboard.add(ships);
+        scoreboard.add(highScore);
+        scoreboard.add(newGame);
+        scoreboard.add(replay);
+        scoreboard.add(quit);
         scoreboard.setVisible(true);
 
     }
