@@ -16,7 +16,7 @@ public class BoardFrame extends JFrame {
         board.setBounds(0, 0, 800, 800);
         board.setResizable(true);
         board.setDefaultCloseOperation(BoardFrame.EXIT_ON_CLOSE);
-        board.setLayout(new GridLayout(x,y,0,0));
+        board.setLayout(new GridLayout(y,x,0,0));
         buttonArray = new int[y*x][2];
         int id = 0;
         for (int i = 0; i < y; i++){
@@ -111,6 +111,9 @@ public class BoardFrame extends JFrame {
                             }
                             else if(i - 1 == 2){
                                 button.setText("Miss Kinda Close");
+                            }
+                            else if(i - 1 > 2){
+                                button.setText("Miss Very Far");
                             }
 
                             boardArray[yLoc][xLoc] = 3;
